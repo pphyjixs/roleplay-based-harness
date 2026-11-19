@@ -1,0 +1,61 @@
+# Local settings and credentials
+/config.json
+/dsapi.md
+/start.txt
+.env
+.env.*
+!.env.example
+*.local.json
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.token
+
+# Clients are maintained locally. Publish the Web overview and mobile templates.
+/frontend/*
+!/frontend/README.md
+/android/*
+!/android/config/
+/android/config/*
+!/android/config/connection.example.json
+!/android/config/p2p.example.json
+
+# Local character packs, model runtimes, and conversation state
+/characters/*
+!/characters/default/
+/models/
+/data/*
+!/data/.gitignore
+*.sqlite*
+*.db
+*.db-shm
+*.db-wal
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Frontend dependencies and build output
+node_modules/
+npm-cache/
+.playwright-cli/
+*.tsbuildinfo
+
+# Temporary files and editor state
+*.log
+*.tmp
+*.part
+*.bak
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

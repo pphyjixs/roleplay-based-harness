@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "character_id": "default",
+  "default_presentation": "text",
+  "presentations": {
+    "text": {
+      "id": "text",
+      "type": "text",
+      "name": "纯文字",
+      "emotions": [],
+      "motions": []
+    }
+  }
+}

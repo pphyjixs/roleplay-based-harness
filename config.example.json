@@ -1,0 +1,241 @@
+{
+  "paths": {
+    "characters": "characters",
+    "data": "data"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8770,
+    "default_user_id": "local",
+    "callback_token_file": "data/state/task-callback.token",
+    "max_websocket_message_bytes": 9437184
+  },
+  "llm": {
+    "providers": {
+      "deepseek": {
+        "base_url": "https://api.deepseek.com",
+        "api_key_env": "DEEPSEEK_API_KEY",
+        "api_key_file": "data/secrets/deepseek-api-key.txt",
+        "timeout_seconds": 60
+      }
+    }
+  },
+  "roleplay": {
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "thinking": false,
+    "max_output_tokens": 1600,
+    "max_repair_attempts": 1
+  },
+  "context": {
+    "max_input_tokens": 32768,
+    "system_max_tokens": 3000,
+    "persona_max_tokens": 14000,
+    "tools_max_tokens": 14000,
+    "session_max_tokens": 1024,
+    "current_input_max_tokens": 6000,
+    "image_token_reserve_per_image": 1024
+  },
+  "characters": {
+    "default": "default",
+    "profiles": {
+      "default": {
+        "persona_file": "characters/default/persona.md",
+        "presentation_file": "characters/default/presentation.json"
+      }
+    }
+  },
+  "memory": {
+    "policy": "batched_archive",
+    "enabled": true,
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "thinking": false,
+    "max_output_tokens": 2400,
+    "recent_turns": 4,
+    "recent_max_tokens": 6000,
+    "recent_max_age_seconds": 259200,
+    "summary_max_tokens": 2400,
+    "summary_target_tokens": 1600,
+    "archive_trigger_multiplier": 16,
+    "archive_input_max_tokens": 131072,
+    "archive_prompt_reserve_tokens": 4096,
+    "archive_summary_max_tokens": 2400,
+    "archive_summary_target_tokens": 1600,
+    "character_max_tokens": 1200,
+    "update_batch_turns": 16,
+    "memory_input_max_tokens": 16000,
+    "task_snapshot_max_tokens": 1200
+  },
+  "retention": {
+    "archive_poll_interval_ms": 1000,
+    "archive_wait_timeout_ms": 120000,
+    "maintenance_interval_seconds": 30,
+    "logs": {
+      "max_tokens": 6000,
+      "max_age_seconds": 3600
+    },
+    "audio": {
+      "delete_after_playback": true,
+      "delete_on_interrupted": true,
+      "delete_on_failed": true,
+      "unplayed_max_age_seconds": 3600,
+      "playback_ack_grace_seconds": 30,
+      "max_cached_bytes": 67108864
+    },
+    "sqlite": {
+      "checkpoint_interval_seconds": 300,
+      "incremental_vacuum_pages": 256
+    }
+  },
+  "idle": {
+    "enabled": true,
+    "timeout_seconds": 300,
+    "check_interval_seconds": 5,
+    "activity_throttle_ms": 1000,
+    "require_connected_client": true,
+    "repeat_without_input": false,
+    "prompt": "用户已经有一段时间没有反应。根据当前人设和以往会话，自然地做一个动作或简短问问用户在干什么，不要编造你看到了用户的行为，也不要派发任务。"
+  },
+  "vision": {
+    "enabled": true,
+    "periodic_prompt": "这是定时摄像头观察，不是用户发言。请为每张图片提供摘要。画面与近期观察基本相同、没有新事件或用户问题时，rp_perform.execute=false。只有明显新情况值得主动互动时才简短回应，不要反复描述同一画面，不派发任务。",
+    "max_images_per_turn": 3,
+    "max_input_bytes_per_image": 2097152,
+    "max_input_pixels": 16777216,
+    "max_source_bytes": 12582912,
+    "max_source_pixels": 16777216,
+    "max_source_dimension": 8192,
+    "max_encode_attempts": 3,
+    "encoding_timeout_ms": 400,
+    "camera": {
+      "interval_ms": 4000,
+      "max_dimension": 960,
+      "quality": 75,
+      "max_bytes": 196608,
+      "format": "image/webp",
+      "detail": "low",
+      "max_buffered_frames": 3,
+      "video_width": 1280,
+      "video_height": 720,
+      "frame_rate": 15,
+      "max_frame_rate": 24,
+      "max_inflight_encodes": 2,
+      "min_quality": 50,
+      "min_dimension": 320,
+      "webp_method": 2,
+      "quality_step": 10,
+      "resize_factor": 0.8,
+      "lossless": false,
+      "batch_size": 2,
+      "analysis_interval_ms": 8000
+    },
+    "upload": {
+      "max_dimension": 1600,
+      "quality": 85,
+      "max_bytes": 524288,
+      "format": "image/webp",
+      "detail": "original",
+      "min_quality": 50,
+      "min_dimension": 640,
+      "webp_method": 2,
+      "quality_step": 10,
+      "resize_factor": 0.8,
+      "lossless": false
+    },
+    "cache": {
+      "max_bytes": 16777216,
+      "max_images": 32,
+      "ttl_seconds": 120,
+      "camera_frames": 3
+    },
+    "summary_max_tokens": 800,
+    "max_request_bytes": 9437184,
+    "processing": {
+      "max_jobs": 2,
+      "timeout_seconds": 3,
+      "max_encode_attempts": 12
+    }
+  },
+  "speech": {
+    "asr_provider": "tencent_cloud",
+    "tts_provider": "local_gpt_sovits",
+    "asr": {
+      "enabled": false,
+      "provider": "tencent",
+      "credentials_file": "data/secrets/tencent-asr.json",
+      "engine_model_type": "16k_zh_en_2.0",
+      "max_recording_seconds": 60,
+      "max_session_seconds": 3600,
+      "rms_threshold": 0.012,
+      "activity_interval_ms": 1000,
+      "open_timeout_ms": 18000,
+      "finish_timeout_ms": 20000,
+      "flush_timeout_ms": 3000,
+      "max_buffered_bytes": 256000,
+      "max_pcm_chunk_bytes": 12800,
+      "socket_receive_timeout_seconds": 15,
+      "max_frame_packet_bytes": 3145728,
+      "restart_delay_ms": 300,
+      "max_restart_attempts": 3
+    },
+    "tts": {
+      "enabled": false,
+      "url": "http://127.0.0.1:9880",
+      "auto_start": false,
+      "startup_timeout_seconds": 360,
+      "warmup": false,
+      "language": "zh",
+      "default_voice": "default",
+      "speed": 1.0,
+      "streaming_mode": 1,
+      "top_k": 15,
+      "top_p": 1.0,
+      "temperature": 0.9,
+      "repetition_penalty": 1.35,
+      "min_chunk_length": 24,
+      "overlap_length": 4,
+      "fragment_interval": 0.08,
+      "seed": 1234,
+      "text": {
+        "max_sentence_chars": 48,
+        "first_segment_min_chars": 12,
+        "spoken_replacements": {}
+      },
+      "runtime": {},
+      "voices": {}
+    },
+    "turn_detection": {
+      "video_speculation": false,
+      "speculative_silence_ms": 300,
+      "commit_silence_ms": 800,
+      "max_speculative_attempts": 2
+    }
+  },
+  "tasks": {
+    "executor": "mock",
+    "planned_executor": "dsh"
+  },
+  "mobile": {
+    "enabled": false,
+    "connection_file": "android/config/connection.local.json",
+    "p2p_file": "android/config/p2p.local.json",
+    "ca_file": "android/config/connection-ca.pem",
+    "sdp_timeout_seconds": 30,
+    "transport": {
+      "chunk_bytes": 12288,
+      "max_message_bytes": 25165824,
+      "max_pending_bytes": 33554432,
+      "max_transfers": 8,
+      "fragment_timeout_seconds": 30,
+      "send_buffer_bytes": 1048576,
+      "send_timeout_seconds": 30,
+      "max_http_requests": 16,
+      "max_websockets": 8,
+      "ws_queue_messages": 128,
+      "http_timeout_seconds": 60,
+      "closed_socket_ids": 128,
+      "closed_socket_ttl_seconds": 120
+    }
+  }
+}

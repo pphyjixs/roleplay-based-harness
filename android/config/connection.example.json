@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "signal_url": "https://signal.example.com",
+  "room": "rpbh",
+  "host_token": "desktop-only-token",
+  "client_token": "mobile-pairing-token",
+  "ca_file": "android/config/connection-ca.pem",
+  "retry_seconds": 5
+}
